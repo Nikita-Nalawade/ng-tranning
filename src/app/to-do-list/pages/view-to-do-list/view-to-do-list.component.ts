@@ -136,7 +136,7 @@ export class ViewToDoListComponent implements OnInit{
     openEditTaskDialog(task: any): void {
       const dialogRef = this.dialog.open(AddTodoListComponent, {
         width: '690px',
-        data:task
+        data:{task}
       });
   
       dialogRef.afterClosed().subscribe(result => {
