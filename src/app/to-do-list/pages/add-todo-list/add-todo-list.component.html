@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ modifyEdit ? 'Edit Task' : 'New Task' }}</h2>
+
+<mat-dialog-content style="padding: 23px;">
+  <form [formGroup]="taskForm">
+   
+    <div class="row">
+      <div class="col-md-6">
+        <label><span class="required">*</span>Assign To</label>
+        <mat-form-field appearance="outline" style="width: 300px; margin-right: 20px;">
+        
+          <mat-select formControlName="assignedTo" name="assignedTo">
+            <mat-option *ngFor="let user of userList" [value]="user">{{user}}</mat-option>
+           
+          </mat-select>
+          <mat-error *ngIf="taskForm.get('assignedTo').invalid && taskForm.get('assignedTo').touched">
+            Assign To is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+<div class="col-md-6">
+  <label><span class="required">*</span>Status</label>
+  <mat-form-field appearance="outline" style="width: 300px;">
+   
+    <mat-select formControlName="status" name="status">
+      <mat-option value="Not Started">Not Started</mat-option>
+      <mat-option value="In Progress">In Progress</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+    </mat-select>
+    <mat-error *ngIf="taskForm.get('status').invalid && taskForm.get('status').touched">
+      Status is required.
+    </mat-error>
+  </mat-form-field>
+</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Due Date</label>
+        <mat-form-field appearance="outline" style="width: 300px; margin-right: 20px;">
+          
+          <input matInput [matDatepicker]="picker" formControlName="dueDate" name="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <label><span class="required">*</span>Priority</label>
+        <mat-form-field appearance="outline" style="width: 300px;">
+         
+          <mat-select formControlName="priority" name="priority">
+            <mat-option value="Normal">Normal</mat-option>
+            <mat-option value="High">High</mat-option>
+            <mat-option value="Urgent">Urgent</mat-option>
+          </mat-select>
+          <mat-error *ngIf="taskForm.get('priority').invalid && taskForm.get('priority').touched">
+            Priority is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+<label>
+  Description
+</label>
+      <mat-form-field appearance="outline" style="width: 620px;">
+       
+        <textarea matInput formControlName="comments" name="description"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions style="float: right; margin-right: 20px;">
+  <button mat-button (click)="cancelAddlist()" style="background-color: #ffc107; color: black;">Cancel</button>
+  <button mat-button   (click)="modifyEdit ? updateTask() : saveAddlist()"style="background-color: green; color: white;">Save</button>
+</mat-dialog-actions>

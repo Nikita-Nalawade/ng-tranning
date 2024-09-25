@@ -1,0 +1,80 @@
+
+
+.container {
+    .card {
+        .card-header {
+            background-color: #f8f9fa;
+
+            .btn-warning {
+                margin-right: 10px;
+            }
+
+            .bi-list-task {
+                border-radius: 3px;
+                padding: 5px;
+                background-color: brown;
+                color: white;
+            }
+        }
+
+        .table {
+
+            th,
+            td {
+                vertical-align: middle;
+            }
+
+            .dropdown {
+                button {
+                    padding: 0.2rem 0.5rem;
+                }
+            }
+        }
+
+        .size {
+            margin-top: 2rem;
+            background-color: #f8f9fa;
+            select {
+                width: auto;
+                margin-left: 0.5rem;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+   
+    .mdc-data-table__cell {
+        box-sizing: border-box;
+       overflow: visible;
+        text-align: left;
+        text-overflow: ellipsis;
+    
+    }
+    .mdc-data-table__cell::after {
+ position: unset;
+    
+    }
+    .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+        box-shadow: 0px 0px 0px 0px;
+    }
+}
+
+
+/* For screens larger than or equal to 1024px (desktops) */
+@media only screen and (max-width: 360px) {
+    .container{
+      width: 663px;
+    }
+  }
+  
+ 
+  @media only screen and (max-width: 770px) {
+    .mat-mdc-table {
+        --mat-table-row-item-outline-width: 1px;
+        /* table-layout: auto; */
+        white-space: normal;
+        background-color: var(--mat-table-background-color);
+        width: 40% !important;
+        min-width: -webkit-fill-available;
+    }
+  }
+  

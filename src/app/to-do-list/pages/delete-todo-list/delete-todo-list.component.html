@@ -1,0 +1,10 @@
+<h2 mat-dialog-title style="background-color: #f44336; color: white; margin: 0;">
+    Delete
+</h2>
+<mat-dialog-content>
+    <p>Do you want to delete task with task id: {{ data.taskId }}?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" style="background-color: green; color: white;">No</button>
+    <button mat-button (click)="onConfirm()" style="background-color: #fdd835; color: black;">Yes</button>
+</mat-dialog-actions>

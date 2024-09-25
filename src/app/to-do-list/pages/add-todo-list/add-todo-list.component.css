@@ -1,0 +1,10 @@
+h2{
+    text-align: center !important;
+}
+
+mat-error{
+    margin-left: -18px;
+}
+.required{
+    color: red;
+}

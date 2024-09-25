@@ -1,0 +1,141 @@
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+           <div>
+           
+                <i class="bi bi-list-task"></i> Tasks
+             
+            
+            <p style="margin-left: 30px;"> All Tasks<p>
+            <p>{{totalreacord}} records</p>
+           </div>
+           
+            <div>
+                
+              <div class="d-flex" style="flex-direction: column;">
+                <div class="btn-group" role="group" aria-label="Basic example" style="width: auto;">
+                    
+                    <button type="button" class="btn btn-secondary"
+                        style="background-color: rgb(251, 229, 163); color: black;" (click)="openAddTaskDialog()">New
+                        Task</button>
+                    <button type="button" class="btn btn-secondary"
+                        style="background-color: rgb(251, 229, 163); color: black;"
+                        (click)="onRefresh()">Refresh</button>
+                </div>
+                <div>
+                    
+                        <input style="width: 230px; margin: 10px;" type="text" [(ngModel)]="searchItem"
+                       (ngModelChange)="filterList()" class="form-control" placeholder="Search">
+                </div>
+              </div>
+  
+  
+              
+             
+            </div>
+        </div>
+        <div>
+            
+        
+            <div class="mat-elevation-z8 col-md-12" style="border: 1px solid greay;">
+                <table mat-table [dataSource]="displayedTasks" class="mat-elevation-z8" matSort>
+              
+                  
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                          <mat-checkbox (change)="$event ? selectAll() : null"></mat-checkbox> <!-- Header checkbox for selecting all -->
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <mat-checkbox [(ngModel)]="element.selected"></mat-checkbox> <!-- Checkbox for each row -->
+                        </td>
+                      </ng-container>
+                  <!-- AssignTo Column -->
+                  <ng-container matColumnDef="assignedTo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Assign To</th>
+                    <td mat-cell *matCellDef="let element" style="color: blue;">{{ element.assignedTo }}</td>
+                  </ng-container>
+              
+                  <!-- Status Column -->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+                  </ng-container>
+              
+                  <!-- Due Date Column -->
+                  <ng-container matColumnDef="dueDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+                    <td mat-cell *matCellDef="let element">{{ element.dueDate }}</td>
+                  </ng-container>
+              
+                  <!-- Priority Column -->
+                  <ng-container matColumnDef="priority">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+                    <td mat-cell *matCellDef="let element">{{ element.priority }}</td>
+                  </ng-container>
+              
+                  <!-- Comments Column -->
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+                    <td mat-cell *matCellDef="let element">{{ element.comments }}</td>
+                  </ng-container>
+              
+                  <!-- Actions Column -->
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="dropdown">
+                          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                  data-bs-toggle="dropdown" aria-expanded="false">
+                            
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                              style="background-color: rgb(251, 229, 163);">
+                            <li><a class="dropdown-item" style="cursor: pointer;" (click)="openEditTaskDialog(element)">Edit</a></li>
+                            <li><a class="dropdown-item" style="cursor: pointer;" (click)="deleteTask(element.id)">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                      
+                  </ng-container>
+              
+                  <!-- Header Row -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <!-- Data Row -->
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <!-- Paginator -->
+                <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator> -->
+              </div>
+              
+              
+            <!-- Bottom left pagination control -->
+            <div class="d-flex justify-content-between size" >
+                <div class="mt-3">
+                    <select id="itemsPerPage" class="form-select form-select-sm"
+                        (change)="onItemsPerPageChange($event)">
+                        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+                    </select>
+                </div>
+                <!-- Pagination -->
+                <div>
+                  <nav>
+                    <ul class="pagination justify-content-end mt-3">
+                        <li class="page-item" [class.disabled]="currentPage === 1"><a class="page-link"
+                                (click)="changePage(1)">First</a></li>
+                        <li class="page-item" [class.disabled]="currentPage === 1"><a class="page-link"
+                                (click)="changePage(currentPage - 1)">Prev</a></li>
+                        <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index">
+                            <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages"><a class="page-link"
+                                (click)="changePage(currentPage + 1)">Next</a></li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages"><a class="page-link"
+                                (click)="changePage(totalPages)">Last</a></li>
+                    </ul>
+                </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
